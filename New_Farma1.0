@@ -1,0 +1,82 @@
+--New_Farma1.0
+CREATE DATABASE dbNewFarma;
+USE dbNewFarma;
+CREATE TABLE tbCliente(
+ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+NOME VARCHAR(50) NOT NULL,
+);
+CREATE TABLE tbCategoria(
+ID INT IDENTITY(1,1) PRIMARY KEY,
+Nome VARCHAR(50) NOT NULL, mean 
+);
+CREATE TABLE tbFornecedor(
+ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+Nome VARCHAR(50) NOT NULL,
+BI VARCHAR(25),
+Email VARCHAR(50),
+TELEFONE VARCHAR(50);
+);
+CREATE TABLE tbProduto(
+ID INT IDENTITY(1,1) PRIMARY KEY,
+Nome VARCHAR(50),
+CategoriaID INT,
+PRECO DECIMAL,
+Quantidade INT,
+FornecedorID INT,
+FOREIGN KEY (CategoriaID) REFERENCES tbCategoria(ID),
+FOREIGN KEY (FornecedorID) REFERENCES tbFornecedor(ID),
+);
+
+CREATE TABLE tbVendedor(
+ID INT IDENTITY(1,1) PRIMARY KEY,
+Nome VARCHAR(50),
+BI VARCHAR(25),
+Telefone VARCHAR(15),	
+);
+
+CREATE TABLE tbVendas(
+ID INT IDENTITY(1,1)PRIMARY KEY,
+ClienteID INT,
+VendedorID INT,
+ProdutoID INT,
+CategoriaID INT,
+Quantidade INT,
+Data DATATIME,
+Descricao VARCHAR(150),
+FOREIGN KEY(ClienteID) REFERENCES tbCliente(ID),
+FOREIGN KEY(VendedorID) REFERENCES tbvendedor (ID),
+FOREIGN KEY(ProdutoID) REFERENCES tbProduto(ID),
+FOREIGN KEY(CategoriaID) REFERENCES tbCategoria(ID),
+);
+CREATE TABLE tbItemVendas(
+ID INT IDENTITY(1,1) PRIMARY KEY,
+VendasID INT,
+ProdutoID INT,
+Quantidade INT,
+PreçoUnitário DECIMAL,
+FOREIGN KEY(VendasID) REFERENCES tbVendas(ID),
+FOREIGN KEY (ProdutoID) REFERENCES tbProduto(ID),
+);
+
+INSERT INTO tbCliente VALUES ('Moises Tchipanga');
+
+SELECT * FROM tbCliente
+
+INSERT INTO tbVendedor VALUES ('Maria Massaquia');
+
+SELECT * FROM tbVendedor
+
+INSERT INTO tbFornecedor VALUES ('Sandra Manuel');
+
+SELECT * FROM tbFornecedor
+
+INSERT INTO tbProduto VALUES ('Paracetamol');
+
+SELECT * FROM tbProduto
+
+INSERT INTO tbCategoria VALUES ('Analgesico');
+
+INSERT INTO tbVendas VALUES(1,1,1,1,(),GETDATE,'Paracetamol para todas as dores de cabeça');
+
+SELECT * FROM tbVendas
+
